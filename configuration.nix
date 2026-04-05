@@ -130,6 +130,9 @@
 
     # Hardware packages
     nvtopPackages.nvidia
+
+    # Software
+    discord
   ];
 
   # Nix/NixOS Settings
