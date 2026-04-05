@@ -47,6 +47,7 @@ let
     tree
     fastfetch
     nano
+    highlight
   ];
 in
 {
