@@ -5,10 +5,11 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ./services.nix
+    ./packages.nix
+  ];
 
   # Boot
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -68,27 +69,6 @@
     keyMap = "fr";
   };
   
-  # Services
-  services = {
-    # Hardware
-    xserver.videoDrivers = [ "nvidia" ];    
-
-    # Desktop Environment
-    desktopManager.plasma6.enable = true;
-    displayManager.sddm.enable = true;
-    displayManager.sddm.wayland.enable = true;
-
-    # Security
-    openssh.enable = true;
-
-    # Printing
-    printing.enable = true;
-
-    # Sound
-    pipewire.enable = true;
-    pipewire.pulse.enable = true;
-  };
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.eepyberry = {
     isNormalUser = true;
@@ -100,83 +80,11 @@
   programs.firefox.enable = true;
   programs.ssh.startAgent = true;
 
-  # List packages installed in system profile.
-  environment.systemPackages = with pkgs; [
-    # KDE Utilities
-    kdePackages.discover # Optional: Software center for Flatpaks/firmware updates
-    kdePackages.kcalc # Calculator
-    kdePackages.kcharselect # Character map
-    kdePackages.kclock # Clock app
-    kdePackages.kcolorchooser # Color picker
-    kdePackages.kolourpaint # Simple paint program
-    kdePackages.ksystemlog # System log viewer
-    kdePackages.sddm-kcm # SDDM configuration module
-    kdiff3 # File/directory comparison tool
-  
-    # Hardware/System Utilities (Optional)
-    kdePackages.isoimagewriter # Write hybrid ISOs to USB
-    kdePackages.partitionmanager # Disk and partition management
-    hardinfo2 # System benchmarks and hardware info
-    wayland-utils # Wayland diagnostic tools
-    wl-clipboard # Wayland copy/paste support
-    vlc # Media player
-
-    # Common packages
-    fastfetch
-    tree
-    git
-    wget
-    pciutils
-
-    # Hardware packages
-    nvtopPackages.nvidia
-
-    # Software
-    discord
-  ];
-
   # Nix/NixOS Settings
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
-
-  # This option defines the first version of NixOS you have installed on this particular machine,
-  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-  #
-  # Most users should NEVER change this value after the initial install, for any reason,
-  # even if you've upgraded your system to a new NixOS release.
-  #
-  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
-  # to actually do that.
-  #
-  # This value being lower than the current NixOS release does NOT mean your system is
-  # out of date, out of support, or vulnerable.
-  #
-  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-  # and migrated your data accordingly.
-  #
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "25.11"; # Did you read the comment?
+  # System state version
+  system.stateVersion = "25.11";
 }
 
