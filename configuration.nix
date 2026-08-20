@@ -10,17 +10,21 @@
     ./boot.nix
     ./services.nix
     ./packages.nix
+    ./programs.nix
     ./users.nix
   ];
+
+  # Zswap
+  zramSwap.enable = true;
 
   # Networking
   networking.hostName = "eepynixos";
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
+  # Time zone.
   time.timeZone = "Europe/Paris";
 
-  # Select internationalisation properties.
+  # Internationalisation properties.
   i18n.defaultLocale = "fr_FR.UTF-8";
   console = {
     font = "Lat2-Terminus16";

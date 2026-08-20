@@ -10,6 +10,7 @@ let
     kdePackages.ksystemlog # System log viewer
     kdePackages.sddm-kcm # SDDM configuration module
     kdiff3 # File/directory comparison tool
+    
     # Hardware/System Utilities (Optional)
     kdePackages.isoimagewriter # Write hybrid ISOs to USB
     kdePackages.partitionmanager # Disk and partition management
@@ -29,7 +30,7 @@ let
   ];
 
   software = with pkgs; [
-    discord
+    protonup-qt
   ];
 
   multimedia = with pkgs; [

@@ -14,7 +14,14 @@
     openssh.enable = true;
 
     # Printing
-    printing.enable = true;
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        cups-filters
+        cups-browsed
+        hplipWithPlugin
+      ];
+    };
 
     # Sound  
     pipewire.enable = true;
